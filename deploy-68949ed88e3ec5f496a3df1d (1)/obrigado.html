@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-620453322"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-620453322');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Obrigado! | AMC Advogado Consumidor</title>
+  <link rel="icon" type="image/x-icon" href="/favicon-2025.ico" />
+  <link rel="apple-touch-icon" href="/favicon-2025.png" />
+  <style>
+    body{font-family:Inter,Arial,Helvetica,sans-serif;background:#0f172a;color:#fff;margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px;}
+    .card{background:#111827;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:28px;max-width:640px;width:100%;text-align:center;}
+    h1{margin:0 0 8px;font-size:28px}
+    p{opacity:.9;line-height:1.55;margin:8px 0}
+    .btn{display:inline-block;margin-top:14px;background:#22c55e;color:#fff;text-decoration:none;padding:12px 18px;border-radius:999px;font-weight:700}
+    .muted{color:#9ca3af;font-size:13px;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Obrigado! Recebemos seus dados.</h1>
+    <p>Em instantes abriremos uma conversa no WhatsApp para agilizar seu atendimento.</p>
+    <a id="cta" class="btn" href="#" target="_self">Abrir conversa no WhatsApp</a>
+    <div class="muted">Se nada acontecer, clique no botão acima.</div>
+  </div>
+
+  <script>
+    (function(){
+      const q = new URLSearchParams(window.location.search);
+      const nome = q.get('nome') || '';
+      const tel = q.get('telefone') || '';
+      const assunto = q.get('assunto') || '';
+      const msg = q.get('mensagem') || '';
+
+      function enc(v){ return encodeURIComponent(v || ''); }
+      const base = 'https://wa.me/5565998172713?text=';
+      let texto = 'Olá, meu nome é ' + (nome||'(sem nome)') + '. ';
+      if (assunto) texto += 'Assunto: ' + assunto + '. ';
+      if (msg) texto += 'Mensagem: ' + msg + ' ';
+      if (tel) texto += '(Telefone: ' + tel + ')';
+
+      const url = base + enc(texto);
+      const a = document.getElementById('cta');
+      a.href = url;
+      setTimeout(function(){ window.location.href = url; }, 600);
+    })();
+  </script>
+</body>
+</html>
