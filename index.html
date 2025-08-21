@@ -628,32 +628,50 @@
   }
 })();
 </script>
-<!-- Conversion auto-binding for WhatsApp clicks -->
+<!-- Conversão: Clique no WhatsApp – Site  -->
 <script>
-(function(){
+(function () {
   var SEND_TO = 'AW-620453322/yJl8CJOUwIkbEMq77acC';
-  function fireConversion(){
-    if (window.gtag) {
-      try { gtag('event','conversion',{'send_to': SEND_TO}); } catch(e){}
+
+  function getWhatsAppLinkFromEventTarget(target) {
+    if (!target) return null;
+    if (target.tagName === 'A' && target.href && /(wa\.me|api\.whatsapp\.com)/i.test(target.href)) {
+      return target;
     }
+    return target.closest && target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
   }
-  function bind(){
-    var sels = 'a[href*="wa.me"],a[href*="api.whatsapp.com"]';
-    document.querySelectorAll(sels).forEach(function(a){
-      if (a.dataset.convBound) return;
-      a.dataset.convBound = '1';
-      a.addEventListener('mousedown', fireConversion, {once:true});
-      a.addEventListener('touchstart', fireConversion, {once:true, passive:true});
-      a.addEventListener('click', fireConversion, {once:true});
-    });
+
+  function handleClick(e) {
+    var a = getWhatsAppLinkFromEventTarget(e.target);
+    if (!a) return;
+    var url = a.href;
+    e.preventDefault();
+
+    var completed = false;
+    try {
+      gtag('event', 'conversion', {
+        'send_to': SEND_TO,
+        'event_callback': function () {
+          completed = true;
+          window.location.href = url;
+        },
+        'event_timeout': 1500
+      });
+    } catch (err) {}
+
+    setTimeout(function () {
+      if (!completed) window.location.href = url;
+    }, 1600);
   }
-  if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', bind); }
-  else { bind(); }
-  // Re-bind if the page updates dynamically
-  var obs = new MutationObserver(function(){ bind(); });
-  obs.observe(document.body, {childList:true, subtree:true});
+
+  document.addEventListener('click', handleClick, true);
 })();
 </script>
+
+<noscript>
+  <img height="1" width="1" style="display:none" alt=""
+       src="https://www.googleadservices.com/pagead/conversion/620453322/?label=yJl8CJOUwIkbEMq77acC&guid=ON&script=0"/>
+</noscript>
 
 </body>
 </html>
