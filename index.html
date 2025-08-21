@@ -597,35 +597,24 @@
 })();
 </script>
 <script>
-(function(){
-  function bindWhatsAppConversion() {
-    var selector = "a[href*='wa.me'],a[href*='api.whatsapp.com'],a[href*='web.whatsapp.com'],a[href*='wa.link']";
-    var links = document.querySelectorAll(selector);
-    links.forEach(function(a){
-      if(a.dataset.gtagBound==='1') return;
-      a.dataset.gtagBound='1';
-      a.addEventListener('click', function(e){
-        var href = a.getAttribute('href') || '';
-        if(!href) return;
-        e.preventDefault();
-        var go=function(){window.location.href=href;};
-        try {
-          if(typeof gtag==='function') {
-            gtag('event','conversion',{'send_to':'AW-620453322/yJl8CJOUwJkEbMQ7nacC','event_callback':go});
-            setTimeout(go,800);
-          } else {
-            go();
-          }
-        } catch(err) { go(); }
-      });
-    });
+(function(){ 
+  var LABEL = 'AW-620453322/yJl8CJOUwIkbEMq77acC';
+  if (location.pathname.toLowerCase().indexOf('obrigado')>-1) return;
+  function fireAndNavigate(a){ 
+    var url=a.href; var blank=(a.target==='_blank');
+    var done=false; 
+    function go(){ if(done) return; done=true; blank?window.open(url,'_blank','noopener'):location.href=url; }
+    try{ 
+      if(typeof gtag==='function'){ gtag('event','conversion',{'send_to':LABEL,'event_callback':go,'event_timeout':1500}); setTimeout(go,1600); }
+      else{ go(); }
+    }catch(e){ go(); }
   }
-  if(document.readyState==='loading') { document.addEventListener('DOMContentLoaded', bindWhatsAppConversion); }
-  else { bindWhatsAppConversion(); }
-  if('MutationObserver' in window) {
-    var obs=new MutationObserver(function(){ bindWhatsAppConversion(); });
-    obs.observe(document.documentElement,{childList:true,subtree:true});
-  }
+  document.addEventListener('click',function(ev){ 
+    var a=ev.target.closest && ev.target.closest("a[href*='wa.me'],a[href*='api.whatsapp.com']"); 
+    if(!a) return; 
+    if(ev.ctrlKey||ev.shiftKey||ev.metaKey||ev.button===1) return; 
+    ev.preventDefault(); fireAndNavigate(a);
+  }, true);
 })();
 </script></body>
 </html>
