@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Exemplo com Conversão de WhatsApp</title>
+  <title>Teste de Conversão WhatsApp</title>
 
-  <!-- Global site tag (gtag.js) - Google Ads + GA4 (opcional) -->
+  <!-- Global site tag (gtag.js) - Google Ads + GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-620453322"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,29 +15,46 @@
     /* Google Ads */
     gtag('config', 'AW-620453322');
 
-    /* GA4 (se você usa esse ID no seu site, mantenha; senão, remova) */
+    /* GA4 (mantenha se usar esse ID no seu site) */
     gtag('config', 'G-7961MTK7HWL');
   </script>
-  
+
   <style>
-    body {font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; margin: 40px; line-height: 1.5;}
-    .cta{display:inline-block; background:#25D366; color:#fff; padding:12px 18px; border-radius:8px; text-decoration:none; font-weight:600}
+    body {font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif; margin: 40px; line-height: 1.6; background:#fafafa;}
+    .wrap{max-width:720px;margin:0 auto;}
+    .cta{display:inline-block; background:#25D366; color:#fff; padding:14px 22px; border-radius:10px; text-decoration:none; font-weight:700; font-size:18px}
     .cta:hover{filter:brightness(0.95)}
-    .box{border:1px solid #e5e5e5; padding:18px; border-radius:10px; margin-top:20px}
-    code {background:#f6f8fa; padding:2px 6px; border-radius:6px}
+    .card{background:#fff;border:1px solid #e9e9e9;border-radius:14px;padding:22px;margin-top:20px;box-shadow:0 2px 10px rgba(0,0,0,0.03)}
+    code{background:#f3f5f7;padding:2px 6px;border-radius:6px}
+    h1{margin:0 0 12px}
+    p{margin:8px 0}
   </style>
 </head>
 <body>
-  <h1>Exemplo – Conversão de Clique no WhatsApp (Google Ads)</h1>
-  <p>Este arquivo contém a base correta do gtag e um <em>handler</em> que dispara a conversão ao clicar
-  em qualquer link do site que aponte para o WhatsApp.</p>
+  <div class="wrap">
+    <h1>Teste de Conversão – Clique no WhatsApp</h1>
+    <p>Este arquivo envia a conversão do Google Ads <em>“Clique no WhatsApp – Site”</em> quando você clica no botão abaixo.</p>
 
-  <div class="box">
-    <p>Botão de teste:</p>
-    <a class="cta" href="https://wa.me/5599000000000?text=Oi%20quero%20atendimento" target="_blank" rel="noopener">Falar no WhatsApp</a>
+    <div class="card">
+      <p><strong>Botão de teste (seu número):</strong></p>
+      <a class="cta" href="https://wa.me/556598172713?text=Ol%C3%A1%2C%20preciso%20de%20ajuda%20jur%C3%ADdica."
+         target="_blank" rel="noopener">
+         Falar no WhatsApp
+      </a>
+      <p style="margin-top:10px;color:#555">Número usado: <code>+55 65 9817-2713</code> (formato <code>wa.me/556598172713</code>)</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Como validar:</strong></p>
+      <ol>
+        <li>Abra o arquivo no navegador e ative o <em>Tag Assistant</em>.</li>
+        <li>Clique no botão “Falar no WhatsApp”.</li>
+        <li>Confira se aparece o evento de conversão <strong>AW-620453322 / Clique no WhatsApp – Site</strong>.</li>
+      </ol>
+    </div>
   </div>
 
-  <!-- Conversão: Clique no WhatsApp – Site  -->
+  <!-- Conversão: Clique no WhatsApp – Site -->
   <script>
   (function() {
     var SENT = false;
@@ -51,10 +68,8 @@
       gtag('event','conversion',{
         'send_to': 'AW-620453322/yJl8CJOUwIkbEMq77acC'
       });
-      /* Libera novamente após 1s para evitar múltiplos envios no mesmo clique */
       setTimeout(function(){ SENT=false; }, 1000);
     }
-    /* Captura cliques em qualquer link que abra WhatsApp (delegação) */
     document.addEventListener('click', function(e){
       var el = e.target;
       while(el && el !== document) {
@@ -65,20 +80,8 @@
         el = el.parentElement;
       }
     }, true);
-
-    /* Gatilho opcional para uso manual:
-       window.dispatchEvent(new Event('gtm.whatsapp')); */
     window.addEventListener('gtm.whatsapp', sendConv);
   })();
   </script>
-
-  <p class="box">
-    <strong>Como usar no seu site:</strong><br>
-    1) Copie apenas os dois blocos &lt;script&gt; deste arquivo: o <em>gtag base</em> no &lt;head&gt; e o
-    <em>handler</em> de conversão logo antes de &lt;/body&gt;.<br>
-    2) Não mantenha nenhum outro snippet antigo de conversão para WhatsApp (evita duplicidade).<br>
-    3) Publique, recarregue o site e clique no botão de WhatsApp. No Tag Assistant você verá
-    “Clique no WhatsApp – Site” como <em>evento de conversão</em> enviado.
-  </p>
 </body>
 </html>
