@@ -505,57 +505,108 @@
   });
 })();
 </script>
+<script>
+(function(){
+  var hero = document.querySelector('.hero');
+  if(!hero) return;
+  // Helper to check if an element is a "white rounded box"
+  function isWhiteRounded(el){
+    var s = window.getComputedStyle(el);
+    if (!s) return false;
+    var bg = s.backgroundColor.replace(/\s+/g,'');
+    var br = parseFloat(s.borderRadius||'0');
+    var bs = s.boxShadow || '';
+    var isWhiteBg = (bg==='rgb(255,255,255)' || bg==='rgba(255,255,255,1)');
+    var looksRaised = bs && bs!=='none';
+    return (isWhiteBg && br >= 6) || (looksRaised && isWhiteBg);
+  }
+  // Don't touch CTAs
+  function isCTA(el){
+    return el.closest('.whatsapp-btn') || el.classList.contains('whatsapp-btn') ||
+           el.closest('.hero-pill')   || el.classList.contains('hero-pill')   ||
+           el.closest('.cta')         || el.classList.contains('cta');
+  }
+  // Walk descendants and remove the bad boxes
+  Array.from(hero.querySelectorAll('*')).forEach(function(el){
+    if (isCTA(el)) return;
+    if (el.tagName==='FORM' || el.tagName==='INPUT' || el.tagName==='TEXTAREA' || el.tagName==='SELECT'){
+      el.remove();
+      return;
+    }
+    if (isWhiteRounded(el)) {
+      el.remove();
+    }
+  });
+})();
+</script>
+<!-- WhatsApp click conversion binder -->
+<script>
+(function(){
+  var SEND_TO = 'AW-620453322/yJl8CJOUwIkbEMq77acC';
+  function convAndGo(url, newTab){
+    var opened=false;
+    function go(){ if(opened) return; opened=true; newTab?window.open(url,'_blank'):window.location.href=url; }
+    if(window.gtag){ 
+      try{ setTimeout(go,800); } 
+      catch(e){ go(); }
+    } else { go(); }
+  }
+  document.querySelectorAll('a[href*="wa.me/"],a[href*="api.whatsapp.com/"]').forEach(function(a){
+    if(a.dataset.convBound) return; a.dataset.convBound='1';
+    var url=a.href; var newTab=(a.target==='_blank');
+    a.addEventListener('click',function(e){ e.preventDefault(); convAndGo(url,newTab); });
+  });
+})();
+</script>
+<!-- Conversão Google Ads no clique de WhatsApp -->
 
 <script>
-(function() {
-  var WHATS_URL = 'https://api.whatsapp.com/send?phone=5565998172713&text=Ol%C3%A1%2C+preciso+de+ajuda+sobre+meu+caso';
+(function () {
+  if (/\/obrigado\.html(?:$|\?)/i.test(location.pathname)) return;
 
-  function isWhatsAppHref(href) {
-    if (!href) return false;
-    // Trata link interno /whatsapp e domínios do WhatsApp
-    return /^\/whatsapp(?:\b|\/|\?|#)/i.test(href) ||
-           href.indexOf('api.whatsapp.com') !== -1 ||
-           href.indexOf('wa.me') !== -1 ||
-           href.indexOf('wa.link') !== -1 ||
-           href.indexOf('web.whatsapp.com') !== -1;
-  }
+  var SELECTOR = "a[href*='wa.me/'], a[href*='api.whatsapp.com/'], a[href*='wa.link/'], a[href*='web.whatsapp.com/']";
 
-  function normalizedHref(href) {
-    if (!href) return WHATS_URL;
-    if (/^\/whatsapp(?:\b|\/|\?|#)/i.test(href)) return WHATS_URL;
-    return href;
-  }
-
-  document.addEventListener('click', function(ev) {
-    var a = ev.target.closest && ev.target.closest('a[href]');
+  function handleClick(e) {
+    var t = e.target;
+    var a = t && (t.closest ? t.closest(SELECTOR) : null);
     if (!a) return;
-    var href = a.getAttribute('href');
-    if (!isWhatsAppHref(href)) return;
 
-    // Dispara a conversão e só depois navega
-    var targetHref = normalizedHref(href);
+    // ignore modified clicks/middle clicks
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    e.preventDefault();
+
+    var href = a.getAttribute('href');
+    if (!href) return;
+
     var navigated = false;
     function go() {
-      if (navigated) return;
-      navigated = true;
-      window.location.href = targetHref;
+      if (navigated) return; navigated = true;
+      var target = a.getAttribute('target');
+      if (target && target !== "_self") {
+        window.open(href, target, 'noopener');
+      } else {
+        window.location.href = href;
+      }
     }
 
     try {
-      gtag('event', 'conversion', {
-        'send_to': 'AW-620453322/yJi8CJ0UwIkbEMq7jacC',
-        'event_callback': go
-      });
-      // Fallback: se o callback não voltar em 400ms, navega mesmo assim
-      setTimeout(go, 400);
-    } catch (e) {
-      go();
-    }
+      if (typeof gtag === 'function') {
+        gtag('event','conversion',{'send_to':'AW-620453322/yJl8CJOUwIkbEMq77acC','event_callback':go});
+        setTimeout(go, 900);
+      } else {
+        go();
+      }
+    } catch(err) { go(); }
+  }
 
-    ev.preventDefault();
-  }, true);
+  // capture phase to get ahead of other handlers
+  document.addEventListener('click', handleClick, true);
+
+  // ensure future elements also work
+  if ('MutationObserver' in window) {
+    new MutationObserver(function(){/* no-op: handler is global */}).observe(document.documentElement, {childList:true, subtree:true});
+  }
 })();
-</script>
-
-</body>
+</script></body>
 </html>
