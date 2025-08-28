@@ -539,32 +539,15 @@
   });
 })();
 </script>
-<!-- WhatsApp click conversion binder -->
-<script>
-(function(){
-  var SEND_TO = 'AW-620453322/yJl8CJOUwIkbEMq77acC';
-  function convAndGo(url, newTab){
-    var opened=false;
-    function go(){ if(opened) return; opened=true; newTab?window.open(url,'_blank'):window.location.href=url; }
-    if(window.gtag){ 
-      try{ setTimeout(go,800); } 
-      catch(e){ go(); }
-    } else { go(); }
-  }
-  document.querySelectorAll('a[href*="wa.me/"],a[href*="api.whatsapp.com/"]').forEach(function(a){
-    if(a.dataset.convBound) return; a.dataset.convBound='1';
-    var url=a.href; var newTab=(a.target==='_blank');
-    a.addEventListener('click',function(e){ e.preventDefault(); convAndGo(url,newTab); });
-  });
-})();
-</script>
 <!-- Conversão Google Ads no clique de WhatsApp -->
 
 <script>
 (function () {
   if (/\/obrigado\.html(?:$|\?)/i.test(location.pathname)) return;
 
-  var SELECTOR = "a[href*='wa.me/'], a[href*='api.whatsapp.com/'], a[href*='wa.link/'], a[href*='web.whatsapp.com/']";
+  var WHATS_URL = 'https://api.whatsapp.com/send?phone=5565998172713&text=Ol%C3%A1%2C+preciso+de+ajuda+sobre+meu+caso';
+
+  var SELECTOR = "a[href*='wa.me/'], a[href*='api.whatsapp.com/'], a[href*='wa.link/'], a[href*='web.whatsapp.com/'], a[href^='/whatsapp']";
 
   function handleClick(e) {
     var t = e.target;
@@ -578,6 +561,7 @@
 
     var href = a.getAttribute('href');
     if (!href) return;
+    if (/^\/whatsapp(|\/|\?|#)/i.test(href)) { href = WHATS_URL; }
 
     var navigated = false;
     function go() {
@@ -592,7 +576,7 @@
 
     try {
       if (typeof gtag === 'function') {
-        gtag('event','conversion',{'send_to':'AW-620453322/yJl8CJOUwIkbEMq77acC','event_callback':go});
+        gtag('event','conversion',{'send_to':'AW-620453322/yJi8CJ0UwIkbEMq7jacC','event_callback':go});
         setTimeout(go, 900);
       } else {
         go();
