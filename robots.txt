@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amcadvogadoconsumidor.com.br/sitemap.xml
