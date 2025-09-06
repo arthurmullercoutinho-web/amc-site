@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+\1
 
 <!-- gtag único: Ads + GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-620453322"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
+  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config','AW-620453322');   // Google Ads
   gtag('config','G-7961MTK7HWL'); // GA4
@@ -20,8 +20,6 @@
   <link rel="icon" href="favicon-2025.ico"/>
   <link rel="preconnect" href="https://www.googletagmanager.com"/>
   <!-- Google Ads & GA4 -->
-  
-  
   <style>
     :root{
       --brand:#16a34a; --ink:#0b1324; --text:#0f172a; --muted:#475569;
@@ -270,61 +268,46 @@
   </div>
 
 
-<!-- Conversão Google Ads forçada: WhatsApp -->
+<!-- Conversão Google Ads no clique do WhatsApp + GA4 -->
 <script>
 (function(){
-  var LABEL = 'AW-620453322/AlKcCL6o5ZQbEMq97naC';
+  var LABEL = 'AW-620453322/AlKcCL6o5ZQbEMq97naC'; // ação de conversão
+  function isWA(u){ return /wa\.me|api\.whatsapp\.com|web\.whatsapp\.com|^whatsapp:/i.test(u||''); }
 
-  function isWA(u){
-    return /(?:^|\/\/)(?:wa\.me|api\.whatsapp\.com|web\.whatsapp\.com)|^whatsapp:/i.test(u||'');
-  }
-  function fire(go){
+  function sendAdsConversion(next){
     try{
-      if(window.gtag){
-        gtag('event','conversion',{
-          send_to: LABEL, value: 1.0, currency: 'BRL', event_callback: go
-        });
-        setTimeout(go, 400);
-      } else { go(); }
-    }catch(e){ go(); }
-  }
-  function handleWhatsClick(e){
-    var el = e.target.closest('a,button,area'); if(!el) return;
-    var href = (el.getAttribute('href') || el.dataset.href || '').trim();
-    if(!isWA(href)) return;
-    e.preventDefault();
-    fire(function(){ if(href) location.href = href; });
+      gtag('event','conversion', { send_to: LABEL, value: 1.0, currency:'BRL', event_callback: next });
+      setTimeout(next, 500);
+    }catch(e){ next(); }
   }
 
-  ['pointerdown','click','auxclick','touchstart','mousedown','keydown'].forEach(function(evt){
+  function fireGA4(){
+    try{ gtag('event','clique_whatsapp'); }catch(e){}
+  }
+
+  function handleClick(e){
+    var el = e.target.closest('a,button'); if(!el) return;
+    var href = (el.getAttribute('href') || el.dataset.href || '').trim();
+    if(!isWA(href) && !el.matches('#btnForm')) return;
+    e.preventDefault();
+    fireGA4();
+    sendAdsConversion(function(){ if(href) location.href = href; });
+  }
+
+  ['click','pointerdown','touchstart','mousedown','keydown'].forEach(function(evt){
     document.addEventListener(evt, function(e){
       if(evt==='keydown' && e.key!=='Enter' && e.key!==' ') return;
-      handleWhatsClick(e);
+      handleClick(e);
     }, true);
   });
 
-  document.addEventListener('click', function(e){
-    var b = e.target.closest('#btnForm'); if(!b) return;
-    try{
-      if(window.gtag){
-        gtag('event','conversion',{
-          send_to: LABEL, value: 1.0, currency: 'BRL', transport_type: 'beacon'
-        });
-      }
-    }catch(_){}
-  }, true);
-
-  (function(){
-    var _gtag = window.gtag;
-    window.gtag = function(){
-      try{
-        if(arguments && arguments[0]==='event' && arguments[1]==='clique_whatsapp' && _gtag){
-          _gtag('event','conversion',{ send_to: LABEL, value: 1.0, currency: 'BRL' });
-        }
-      }catch(_){}
-      return _gtag ? _gtag.apply(this, arguments) : undefined;
-    };
-  })();
+  // Uso opcional inline: onclick="return gtag_report_conversion(this)"
+  window.gtag_report_conversion = function(el){
+    var href = (el && (el.getAttribute('href')||el.dataset.href)||'').trim();
+    fireGA4();
+    sendAdsConversion(function(){ if(href) location.href = href; });
+    return false;
+  };
 })();
 </script>
 
