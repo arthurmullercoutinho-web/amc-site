@@ -268,12 +268,13 @@
   </div>
 
 
-  <!-- Conversão Google Ads: WhatsApp (universal + formulário) -->
+  <!-- Conversão Google Ads: WhatsApp (universal + formulário + GA4 event hook) -->
   <script>
   (function(){
     var LABEL = 'AW-620453322/AlKcCL6o5ZQbEMq97naC';
     function isWA(href){ return /wa\.me|api\.whatsapp\.com|web\.whatsapp\.com|whatsapp:/i.test(href||''); }
-    // Universal listener: links/botões com href de WhatsApp
+
+    // 1) Universal: links/botões com href de WhatsApp
     document.addEventListener('click', function(e){
       var el = e.target.closest('a,button'); if(!el) return;
       var href = (el.getAttribute('href') || el.dataset.href || '').trim();
@@ -292,7 +293,8 @@
         } else { go(); }
       }catch(err){ go(); }
     }, true);
-    // Fallback: botão do formulário (#btnForm) quando monta URL por JS
+
+    // 2) Fallback: botão do formulário (#btnForm) quando monta URL por JS
     document.addEventListener('click', function(e){
       var el = e.target.closest('#btnForm'); if(!el) return;
       try{
@@ -306,6 +308,26 @@
         }
       }catch(err){}
     }, true);
+
+    // 3) Hook no GA4: se alguém chamar gtag('event','clique_whatsapp', {...}) dispare Ads também
+    (function(){
+      var _gtag = window.gtag;
+      window.gtag = function(){
+        try{
+          if(arguments && arguments[0] === 'event' && arguments[1] === 'clique_whatsapp'){
+            if(_gtag){
+              _gtag('event','conversion',{
+                'send_to': LABEL,
+                'value': 1.0,
+                'currency': 'BRL'
+              });
+            }
+          }
+        }catch(e){}
+        return _gtag ? _gtag.apply(this, arguments) : undefined;
+      };
+    })();
+
   })();
   </script>
 
