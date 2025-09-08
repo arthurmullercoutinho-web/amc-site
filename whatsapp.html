@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fale no WhatsApp | AMC Advogado Consumidor</title>
+  <meta name="description" content="Fale com um advogado agora pelo WhatsApp. Atendimento em Cuiabá e online.">
+  <link rel="canonical" href="https://amcadvogadoconsumidor.com.br/whatsapp">
+
+  <!-- Mesmos IDs do site (Ads + GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-620453322"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config','AW-620453322');
+    gtag('config','G-7961MTK7HWL');
+  </script>
+
+  <style>
+    :root{--ink:#0B2545;--muted:#5b6b86;--brand:#25D366;--bg:#f7f9fc}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif}
+    .wrap{max-width:880px;margin:0 auto;padding:24px 16px}
+    .card{background:#fff;border-radius:18px;box-shadow:0 8px 28px rgba(0,0,0,.08);padding:28px}
+    h1{margin:0 0 12px;font-size:28px}
+    p{margin:0 0 12px;line-height:1.6}
+    .muted{color:var(--muted);font-size:14px}
+    .cta{display:inline-block;margin-top:8px;padding:14px 18px;border-radius:14px;
+         background:var(--brand);color:#fff;text-decoration:none;font-weight:700}
+    .box{background:#f3f6fb;border-radius:14px;padding:14px;margin-top:8px}
+    ul{margin:8px 0 0 18px}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="card">
+      <h1>Fale com um advogado no WhatsApp</h1>
+      <p>Atendimento imediato para <strong>atraso/cancelamento de voo</strong>, <strong>extravio de bagagem</strong>, <strong>conta bancária bloqueada</strong> e <strong>INSS negado</strong>.</p>
+      <div class="box">
+        <ul>
+          <li>Atendimento em Cuiabá e 100% online</li>
+          <li>Linguagem simples e objetiva</li>
+          <li>Orientação inicial e checklist de documentos</li>
+        </ul>
+      </div>
+      <p>
+        <a id="cta" class="cta" href="https://api.whatsapp.com/send?phone=556598172713&text=Ol%C3%A1!%20Vim%20do%20Google%20e%20preciso%20de%20ajuda.">Abrir WhatsApp</a>
+      </p>
+      <p class="muted">Preferir ligar? <a href="tel:+556598172713">+55 (65) 9817-2713</a></p>
+      <p class="muted">Sem promessas de resultado. Cada caso é analisado individualmente.</p>
+    </div>
+    <p class="muted" style="margin-top:10px">Ao clicar, você será direcionado ao WhatsApp. Esta página existe para informar e facilitar seu contato.</p>
+  </main>
+
+  <script>
+    (function(){
+      var LABEL = 'AW-620453322/AlKcCL6o5ZQbEMq97naC';
+      function isWA(u){ return /wa\.me|api\.whatsapp\.com|web\.whatsapp\.com|^whatsapp:/i.test(u||''); }
+      function sendAdsConversion(next){
+        try{ gtag('event','conversion',{send_to:LABEL,value:1.0,currency:'BRL',event_callback:next}); setTimeout(next,500);}catch(e){ next(); }
+      }
+      function fireGA4(){ try{ gtag('event','clique_whatsapp'); }catch(e){} }
+      function handle(e){
+        var a=e.target.closest('a'); if(!a) return;
+        var href=a.getAttribute('href')||''; if(!isWA(href)) return;
+        if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey) return;
+        e.preventDefault(); fireGA4(); sendAdsConversion(function(){ location.href=href; });
+      }
+      document.addEventListener('click', handle, true);
+    })();
+  </script>
+</body>
+</html>
