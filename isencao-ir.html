@@ -144,24 +144,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       text-shadow:0 6px 22px rgba(0,0,0,.22);
       }
 @media (max-width: 680px) {
-  .hero-title {
-    font-size: 22px !important;
+  #hero, .hero-content, .hero-title, .hero-title .destaque {
     text-align: center !important;
-    margin: 0 auto 15px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
     width: 100% !important;
     display: block !important;
-    padding: 0 5px !important;
+    left: 0 !important;
+    right: 0 !important;
+    position: relative !important;
+    font-size: 22px !important;
+  }
+  .hero-title {
+    margin-bottom: 15px !important;
     line-height: 1.2 !important;
   }
-  .hero-title .destaque {
-    font-size: 22px !important;
-    display: inline-block !important;
-    text-align: center !important;
-    width: 100% !important;
-  }
 }
-
-  }
   .hero-title .destaque {
     font-size: 22px !important;
     display: inline-block !important;
