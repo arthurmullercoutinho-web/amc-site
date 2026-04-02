@@ -267,57 +267,52 @@ white-space:nowrap;
       window.location = app;
       setTimeout(function(){ window.location = web; }, 1200);
     } else {
-      window.location = web;
+             window.location = web;
     }
-  }
-  </script>
-</head>
-<body style="margin: 0; padding: 0; background-color: #000;">
+}
+</script>
 
-<header class="header-main">
-    <div class="container">
-        <div class="logo">
-            <img src="assets/images/logo.png" alt="AMC Advocacia">
-        </div>
+<!-- RESTAURAÇÃO DO HEADER (MARCA AMC) -->
+<header class="header-main" style="background: #000; padding: 20px 0;">
+    <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+        <img src="assets/images/logo.png" alt="AMC Advocacia" style="height: 55px;">
     </div>
 </header>
 
-<section class="hero-section" id="hero" style="background-image: url('assets/images/hero-bg.jpg');">
-    <div class="container hero-main">
-        <div class="hero-line"></div>
+<!-- RESTAURAÇÃO DO HERO (IGUAL À FOTO ORIGINAL) -->
+<section id="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('assets/images/fundo-biblioteca.jpg') center/cover no-repeat; min-height: 85vh; display: flex; align-items: center; color: #fff; font-family: sans-serif;">
+    <div class="container" style="max-width: 1100px; margin: 0 auto; display: flex; padding: 0 20px; width: 100%;">
         
-        <p style="font-weight: 600; color: #D4AF37; margin-bottom: 15px; text-transform: uppercase; font-size: 11px; letter-spacing: 2px; text-align: center;">Escritório de advocacia em Cuiabá especializado em isenção de IR</p>
+        <!-- A BARRA DOURADA VERTICAL -->
+        <div style="width: 5px; background: #c09d63; margin-right: 35px; border-radius: 2px;"></div>
 
-        <h1 class="hero-title" style="text-align: center;">
-            ISENÇÃO DE IMPOSTO DE RENDA:<br>
-            <span class="destaque">APOSENTADOS PODEM PARAR DE PAGAR</span><br>
-            <span class="destaque">E RECUPERAR VALORES DOS ÚLTIMOS 5 ANOS</span>
-        </h1>
+        <div style="flex: 1; text-align: left;">
+            <h1 style="font-size: 48px; font-weight: 900; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase;">
+                NÃO PAGUE MAIS IR EM 2026:<br>
+                <span style="color: #fff;">RECUPERE ATÉ R$ 100 MIL DOS</span><br>
+                <span style="color: #fff;">ÚLTIMOS 5 ANOS</span>
+            </h1>
 
-        <p class="hero-sub" style="text-align: center;">Escritório especializado em Cuiabá/MT: Análise jurídica humanizada para garantir a isenção imediata no seu benefício.</p>
+            <p style="font-size: 18px; color: #ccc; max-width: 650px; margin-bottom: 35px; line-height: 1.5;">
+                
+                Advocacia especializada na análise de casos de isenção e restituição de Imposto de Renda para aposentados e pensionistas com doença grave.
+            </p>
 
-        <div style="display: flex; justify-content: center; margin-top: 35px;">
-            <a href="#" class="btn btn-gold clique_whatsapp" onclick="abrirWhatsApp('Olá Dr. Arthur, quero verificar meu direito à isenção de IR.'); return false;">
-                VERIFICAR MEU DIREITO AGORA
-            </a>
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 15px;">
+                <!-- BOTÃO DOURADO -->
+                <a href="#" onclick="abrirWhats()" style="background-color: #c09d63; color: #ffffff; padding: 20px 40px; text-decoration: none; font-weight: bold; font-size: 16px; border-radius: 4px; text-transform: uppercase; display: inline-block;">
+                    CLIQUE AQUI E FALE COM O ADVOGADO
+                </a>
+                
+                <!-- BADGE ARREDONDADO -->
+                <div style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; padding: 10px 25px; border-radius: 50px; font-size: 14px;">
+                    Atendimento claro • análise individual • possível restituição de 5 anos
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-
-    <div class="center">
-     
-    </div>
-  </div>
-</section>
-
-<section class="section soft">
-  <div class="container">
-    <div class="section-head">
-      <div class="gold-divider"></div>
-      <h2>Doenças que Podem Gerar Isenção</h2>
-      <p>A lista legal é mais ampla, mas estas são algumas das doenças mais conhecidas analisadas nesse tipo de pedido.</p>
-    </div>
 
     <div class="disease-grid">
       <div class="disease">Câncer (Neoplasia maligna)</div>
