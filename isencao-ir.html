@@ -272,15 +272,16 @@ white-space:nowrap;
 }
 
 </script>
-<header class="header-main" style="padding: 25px 0; background: #000; position: relative; z-index: 10;">
+<header class="header-main" style="padding: 25px 0; background: #000; position: relative; z-index: 100;">
     <div class="container">
         <div class="logo">
-            <img src="assets/images/logo.png" alt="AMC Advocacia" style="max-width: 180px; height: auto;">
+            <!-- Tentativa 1: Pasta assets -->
+            <img src="assets/images/logo.png" alt="AMC Advocacia" style="max-width: 180px; height: auto;" onerror="this.src='images/logo.png'">
         </div>
     </div>
 </header>
 
-<section class="hero-section" id="hero" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/images/hero-bg.jpg') center/cover no-repeat; padding: 120px 0; min-height: 90vh; display: flex; align-items: center; color: #fff; text-align: left; position: relative;">
+<section class="hero-section" id="hero" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/images/hero-bg.jpg') center/cover no-repeat; background-attachment: fixed; padding: 120px 0; min-height: 90vh; display: flex; align-items: center; color: #fff; text-align: left;">
     <div class="container hero-main">
         <div class="hero-line" style="width: 2px; height: 110px; background: #D4AF37; margin-bottom: 35px;"></div>
         
